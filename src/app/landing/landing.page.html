@@ -1,0 +1,38 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>To day</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  
+  <ion-list>
+    <ion-card *ngFor="let item of tempObj" (click)="detail(item)">
+      <img src="{{item.img}}" />
+
+      <ion-card-header>
+        <ion-card-subtitle>
+          <ion-button *ngIf="item.status" size="small" color="success">open</ion-button>
+          <ion-button *ngIf="!item.status" size="small" color="danger">close</ion-button>
+        </ion-card-subtitle>
+        <ion-card-title>{{item.dname}}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        {{item.title}}
+      </ion-card-content>
+    </ion-card>
+
+  </ion-list>
+</ion-content>
+<ion-footer class="ion-no-border" [translucent]="true">
+  <ion-toolbar>
+    <ion-tabs>
+      <ion-tab-bar>
+        <ion-tab-button (click)="presentAlertPrompt()">
+          <ion-icon name="add-circle" color="danger"></ion-icon>
+          <ion-label color="danger">Add</ion-label>
+        </ion-tab-button>
+      </ion-tab-bar>
+    </ion-tabs>
+  </ion-toolbar>
+</ion-footer>

@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{dname}}</ion-title>
+
+    <ion-button (click)="closeModal()" slot="end" style="margin-right: 10px;">
+      <ion-icon slot="icon-only" name="close"></ion-icon>
+    </ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-img src="{{img}}"></ion-img>
+  <ion-content class="ion-padding">
+    <!-- <ion-button *ngIf="item.status" size="small" color="success">open</ion-button><ion-button *ngIf="!item.status" size="small" color="danger">close</ion-button> -->
+    <h3>{{dname}}</h3>
+    <p>{{title}}</p>
+    <p color="secondary">- {{des}}</p>
+    <ion-grid>
+      <ion-row>
+        <ion-button size="small" color="secondary" (click)="presentAlertPromptEdit()">
+          <ion-icon name="create-outline"></ion-icon> Edit
+        </ion-button>
+        <ion-button size="small" color="danger" (click)="presentAlertConfirm()">
+          <ion-icon name="trash-outline"></ion-icon>Delete
+        </ion-button>
+      </ion-row>
+    </ion-grid>
+  </ion-content>
+
+</ion-content>

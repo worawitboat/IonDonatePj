@@ -1,7 +1,10 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="landing" ></ion-back-button>
+    </ion-buttons>
     <ion-title>
-      Blank
+      <p>{{this.data.dname}}</p>
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -9,6 +12,12 @@
 <ion-content [fullscreen]="true">
 
   <div style="height: 100%; width:
-  100%" id="map_canvas"></div>
+  100%" id="map_canvas">
+    <div class="bottom" text-center>
+      <ion-button color="danger" (click)="presentModal()">
+        <p>Detail</p>
+      </ion-button>
+    </div>
+  </div>
 
 </ion-content>

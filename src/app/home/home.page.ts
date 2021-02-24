@@ -1,8 +1,11 @@
 import { Component } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { ActivatedRoute } from '@angular/router';
+import { ModalController} from '@ionic/angular';
 import { GoogleMapOptions, GoogleMaps, GoogleMapsEvent } from '@ionic-native/google-maps';
 import { Platform } from '@ionic/angular';
 import { crudapi } from './crudapi';
+import { ModalPage } from '../modal/modal.page';
 
 @Component({
   selector: 'app-home',
@@ -10,24 +13,37 @@ import { crudapi } from './crudapi';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
-  tempObj: any;
   map: any;
-  constructor(private fireStore: AngularFirestore, private getCrud: crudapi) { }
+  data: any;
+  constructor(public activatedRoute: ActivatedRoute, 
+    private fireStore: AngularFirestore, 
+    private getCrud: crudapi, 
+    private ModalController: ModalController) { }
+
 
 
   ngOnInit() {
-    this.getCrud.readData().subscribe(data => {
-      this.tempObj = data.map(e => {
-        return {
-          id: e.payload.doc.id,
-          img: e.payload.doc.data()['img'.toString()],
-          cname: e.payload.doc.data()['cname'.toString()],
-          capital: e.payload.doc.data()['capital'.toString()]
-        }
-      });
-      console.log(this.tempObj);
-    });
-      this.initMap();
+    const data = this.activatedRoute.snapshot.paramMap.get('data');
+    this.data = JSON.parse(data);
+    this.initMap();
+  }
+
+  async presentModal() {
+    const modal = await this.ModalController.create({
+      component: ModalPage,
+      componentProps: {
+        id:this.data.id,
+        dname: this.data.dname,
+        img: this.data.img,
+        title: this.data.title,
+        lat:this.data.lat,
+        lng:this.data.lng,
+        des: this.data.des,
+        status: this.data.status
+      }
+    })
+    return await modal.present();
+
   }
 
   initMap() {
@@ -35,12 +51,13 @@ export class HomePage {
     let mapOptions: GoogleMapOptions = {
       camera: {
         target: {
-          lat: 43.0741904,
-          lng: -89.3809802
+          lat: Number(this.data.lat),
+          lng: Number(this.data.lng)
         },
         zoom: 18,
-        tilt: 30
-      }
+        tilt: 30,
+
+      },
     };
     this.map = GoogleMaps.create('map_canvas',
       mapOptions);
@@ -51,8 +68,8 @@ export class HomePage {
           icon: 'blue',
           animation: 'DROP',
           position: {
-            lat: 43.0741904,
-            lng: -89.3809802
+            lat: Number(this.data.lat),
+            lng: Number(this.data.lng)
           }
         })
           .then(marker => {

@@ -21,7 +21,7 @@ export class TutorialPage implements OnInit {
   ngOnInit() {
   }
   continue() {
-    this.route.navigate(['/home']);
+    this.route.navigate(['/landing']);
   }
 
 }

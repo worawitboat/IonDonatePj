@@ -25,3 +25,14 @@
 #container a {
   text-decoration: none;
 }
+
+h1,h2,p,ion-card,ion-back-button{
+  font-family: "Prompt";
+}
+
+.bottom {
+  position: fixed;
+  bottom:10px;
+  left: 5px;
+  right: 0;
+}
